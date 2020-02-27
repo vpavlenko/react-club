@@ -1,11 +1,12 @@
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
 
 body {
   margin: 10px;
 }
 
 .app {
-  width: 200px;
+  width: 350px;
+  margin: 3em;
 }
 
 .todo-list-item {
@@ -15,13 +16,14 @@ body {
   align-items: center;
   padding: 1em;
   border-radius: 5px;
-  width: 200px;
+  width: 350px;
   margin-bottom: 5px;
-	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
 }
 
 .todo-list-item:hover {
-	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
 }
 
 .todo-list-item .todo-list-item__icon {
@@ -30,10 +32,4 @@ body {
 
 .todo-list-item:hover .todo-list-item__icon {
   display: block;
-}
-
-.todo-list-item:hover .todo-list-item__icon:hover {
-  display: block;
-  color: blue;
-  cursor: pointer;
 }

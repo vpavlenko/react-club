@@ -1,5 +1,6 @@
 import React, { useState, useRef, MouseEvent, useEffect } from "react";
-import { Input, Button, Icon } from "antd";
+import { Input, Button, Icon, Typography } from "antd";
+import styled from "styled-components";
 import "./App.css";
 
 type TodoListItemType = {
@@ -11,6 +12,44 @@ type TodoListItemProps = {
   item: TodoListItemType;
   doneThisItem: () => void;
   setNewValue: (newValue: string) => void;
+  removeItem: () => void;
+};
+
+const PaddedIcon = styled.span`
+  margin: 0 5px;
+  font-size: 20px;
+`;
+
+type HoverIconProps = {
+  type: string;
+  onClick: (event: MouseEvent) => void;
+};
+
+const HoverIcon: React.FC<HoverIconProps> = ({
+  type,
+  onClick
+}: HoverIconProps) => {
+  const [hover, setHover] = useState(false);
+
+  return (
+    <PaddedIcon>
+      <div
+        onMouseEnter={() => {
+          setHover(true);
+        }}
+        onMouseLeave={() => {
+          setHover(false);
+        }}
+      >
+        <Icon
+          type={type}
+          onClick={onClick}
+          theme={hover ? "filled" : "outlined"}
+          className="todo-list-item__icon"
+        ></Icon>
+      </div>
+    </PaddedIcon>
+  );
 };
 
 const TodoListItem: React.FC<TodoListItemProps> = (
@@ -20,13 +59,17 @@ const TodoListItem: React.FC<TodoListItemProps> = (
   const [value, setValue] = useState(props.item.content);
   const inputEl = useRef<Input>(null);
   useEffect(() => {
-    editMode && inputEl.current && inputEl.current.focus();
+    editMode && inputEl.current && inputEl.current.select();
   }, [editMode]);
 
   return (
     <div
       className="todo-list-item"
-      style={props.item.done ? { textDecoration: "line-through" } : {}}
+      style={
+        props.item.done
+          ? { textDecoration: "line-through", backgroundColor: "#ccc" }
+          : {}
+      }
       onClick={() => props.doneThisItem()}
     >
       {editMode ? (
@@ -45,14 +88,30 @@ const TodoListItem: React.FC<TodoListItemProps> = (
       ) : (
         <span>{props.item.content}</span>
       )}
-      {!editMode && <Icon
-        type="edit"
-        className="todo-list-item__icon"
-        onClick={event => {
-          setEditMode(true);
-          event.stopPropagation();
-        }}
-      />}
+      {!editMode && (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between"
+          }}
+        >
+          <HoverIcon
+            type="edit"
+            onClick={event => {
+              setEditMode(true);
+              event.stopPropagation();
+            }}
+          />
+          <HoverIcon
+            type="delete"
+            onClick={event => {
+              props.removeItem();
+              event.stopPropagation();
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };
@@ -85,7 +144,7 @@ function App() {
 
   const inputEl = useRef<Input>(null);
 
-  function addNewItemHandler(event: MouseEvent) {
+  function addNewItemHandler() {
     const newItems = [...items, { content: newItemContent, done: false }];
     setItems(newItems);
     setNewItemContent("");
@@ -94,6 +153,7 @@ function App() {
 
   return (
     <div className="app">
+      <Typography.Title>What needs to be done?</Typography.Title>
       {items.map((item, index) => {
         return (
           <TodoListItem
@@ -112,19 +172,27 @@ function App() {
 
               setItems(newItems);
             }}
+            removeItem={() => {
+              setItems([...items.slice(0, index), ...items.slice(index + 1)]);
+            }}
           />
         );
       })}
-      <Input
-        size="large"
-        value={newItemContent}
-        autoFocus
-        ref={inputEl}
-        onChange={event => {
-          setNewItemContent(event.target.value);
-        }}
-      />
-      <Button onClick={addNewItemHandler}>Add new item</Button>
+      <div style={{ marginTop: "5em" }}>
+        <Input
+          size="large"
+          placeholder="new item"
+          value={newItemContent}
+          autoFocus
+          ref={inputEl}
+          style={{ marginBottom: "1em" }}
+          onChange={event => {
+            setNewItemContent(event.target.value);
+          }}
+          onPressEnter={addNewItemHandler}
+        />
+        <Button onClick={addNewItemHandler}>Add new item</Button>
+      </div>
     </div>
   );
 }
