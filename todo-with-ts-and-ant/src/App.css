@@ -1,0 +1,19 @@
+body {
+  margin: 10px;
+}
+
+.todo-list-item {
+  padding: 1em;
+  border-radius: 5px;
+  width: 200px;
+  margin-bottom: 5px;
+  /* background-color: #eee; */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+.todo-list-item:hover {
+  /* background-color: #ddd; */
+  border-bottom: 0 none;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+}
