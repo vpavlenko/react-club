@@ -18,8 +18,14 @@ Meeting 1
 Meeting 2
 ---
 
+[Demo for meeting 2](https://todo-with-ts-and-ant.now.sh)
+
 - [Set up TypeScript and Ant Design](https://ant.design/docs/react/use-in-typescript)
 - [React Hooks with TypeScript](https://levelup.gitconnected.com/usetypescript-a-complete-guide-to-react-hooks-and-typescript-db1858d1fb9c)
 - [Another article on Hooks and TypeScript](https://fettblog.eu/typescript-react/hooks/)
+- [Demo on prevState for setState](https://repl.it/@cxielamiko/prevState-in-useState-example)
+- [Debugging in the Editor](https://create-react-app.dev/docs/setting-up-your-editor#debugging-in-the-editor)
 - [16 box shadows](https://repl.it/@cxielamiko/LimeEllipticalRepo)
 - [Flex Cheat Sheet](https://yoksel.github.io/flex-cheatsheet)
+- [Flexbox Froggy game](https://flexboxfroggy.com/)
+- [TypeScript Evolution](https://mariusschulz.com/blog/series/typescript-evolution)
